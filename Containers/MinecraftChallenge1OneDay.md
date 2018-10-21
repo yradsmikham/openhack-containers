@@ -45,3 +45,23 @@ Some other useful resources are:
 - [Azure Container Instances Documentation](https://docs.microsoft.com/en-us/azure/container-instances/)
 - [Windows Containers Documentation](https://docs.microsoft.com/en-us/virtualization/windowscontainers/index)
 
+#Solution: 
+
+### Running Minecraft Server Locally: 
+
+```
+docker pull openhack/minecraft-server
+
+docker run -d -p 25565:25565 -e EULA=TRUE openhack/minecraft-server
+```
+
+### Running Minecraft Server in Azure Container (via az cli)
+
+```
+az container create -g yvradsmi --image=openhack/minecraft-server -n yvradsmi-openhack-minecraft-server --ip-address public --port 25565 -e EULA=TRUE --cpu 2
+
+az container show --resource-group yvradsmi --name yvradsmi-openhack-minecraft-server 
+
+az container show --resource-group yvradsmi --name yvradsmi-openhack-minecraft-server --query "{FQDN:ipAddress.ip,ProvisioningState:provisioningState}" --out table
+```
+
