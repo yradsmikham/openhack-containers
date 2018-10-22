@@ -36,3 +36,32 @@ Some other useful resources in addition to the ones in challenge 1 are:
 - [Kubectl overview](https://kubernetes.io/docs/user-guide/kubectl-overview/)
 - [Service Fabric Containers Overview](	https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-containers-overview)
 
+## Solution
+
+Using Service Fabric, create a shell script:
+
+```
+#!/bin/bash
+
+# Variables
+ResourceGroupName="yvradsmi-minecraft-rg" 
+ClusterName="yvradsmi-minecraft-cluster" 
+Location="eastus" 
+Password="whatsyourpassword?" 
+Subject="yvradsmi-minecraft-cluster.eastus.cloudapp.azure.com" 
+VaultName="yvradsmi-minecraft-vault" 
+VmPassword="whatsyourpassword?"
+VmUserName="yvradsmi-admin"
+
+# Create resource group
+az group create --name $ResourceGroupName --location $Location 
+
+# Create secure five node Linux cluster. Creates a key vault in a resource group
+# and creates a certficate in the key vault. The certificate's subject name must match 
+# the domain that you use to access the Service Fabric cluster.  The certificate is downloaded locally.
+az sf cluster create --resource-group $ResourceGroupName --location $Location \ 
+  --certificate-output-folder . --certificate-password $Password --certificate-subject-name $Subject \
+  --cluster-name $ClusterName --cluster-size 5 --os UbuntuServer1604 --vault-name $VaultName \ 
+  --vault-resource-group $ResourceGroupName --vm-password $VmPassword --vm-user-name $VmUserName
+```
+

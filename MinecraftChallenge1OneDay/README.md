@@ -58,10 +58,14 @@ docker run -d -p 25565:25565 -e EULA=TRUE openhack/minecraft-server
 ### Running Minecraft Server in Azure Container (via az cli)
 
 ```
-az container create -g yvradsmi --image=openhack/minecraft-server -n yvradsmi-openhack-minecraft-server --ip-address public --port 25565 -e EULA=TRUE --cpu 2
+az group create -n yvradsmi-minecraft-rg -l westus
 
-az container show --resource-group yvradsmi --name yvradsmi-openhack-minecraft-server 
+az container create -g yvradsmi-minecraft-rg --image=openhack/minecraft-server -n yvradsmi-openhack-minecraft-server --ip-address public --port 25565 -e EULA=TRUE --cpu 2
 
-az container show --resource-group yvradsmi --name yvradsmi-openhack-minecraft-server --query "{FQDN:ipAddress.ip,ProvisioningState:provisioningState}" --out table
+az container show --resource-group yvradsmi-minecraft-rg --name yvradsmi-openhack-minecraft-server 
+
+az container show --resource-group yvradsmi-minecraft-rg --name yvradsmi-openhack-minecraft-server --query "{FQDN:ipAddress.ip,ProvisioningState:provisioningState}" --out table
+
+az container logs --resource-group yvradsmi-minecraft-rg --name yvradsmi-openhack-minecraft-server
 ```
 
