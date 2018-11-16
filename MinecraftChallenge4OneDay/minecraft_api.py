@@ -87,13 +87,13 @@ def add_instance():
 
     # create an instance of the API class
     namespace = 'default' # str | object name and auth scope, such as for teams and projects
-    body = client.V1Pod(metadata.name='test', spec.containers.name='minecraft', spec.containers.image='openhack/minecraft-server:2.0' ) # V1Pod | 
+    #body = client.V1Pod(metadata.name='test', spec.containers.name='minecraft', spec.containers.image='openhack/minecraft-server:2.0' ) # V1Pod | 
     include_uninitialized = True # bool | If true, partially initialized resources are included in the response. (optional)
     pretty = 'pretty_example' # str | If 'true', then the output is pretty printed. (optional)
     dry_run = 'dry_run_example' # str | When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed (optional)
 
     print("Creating a Pod in Kubernetes Cluster")
-    api_response = v1.create_namespaced_pod(namespace, body, include_uninitialized=include_uninitialized, pretty=pretty, dry_run=dry_run)
+    api_response = v1.create_namespaced_pod(namespace, pod, include_uninitialized=include_uninitialized, pretty=pretty, dry_run=dry_run)
     #json_ret = json.dumps(ret,sort_keys=True, indent=4)
     return(api_response)
 
