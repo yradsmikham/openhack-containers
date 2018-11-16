@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/MultiTenant" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="IpManager_PartitionCount" Value="1" />
+    <Parameter Name="IpManager_MinReplicaSetSize" Value="3" />
+    <Parameter Name="IpManager_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="TenantManager_MinReplicaSetSize" Value="3" />
+    <Parameter Name="TenantManager_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="ASPNETCORE_ENVIRONMENT_env" Value="Development" />
+    <Parameter Name="TenantWorkflowActorService_PartitionCount" Value="1" />
+  </Parameters>
+</Application>

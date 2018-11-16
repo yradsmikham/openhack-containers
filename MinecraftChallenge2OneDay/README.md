@@ -65,3 +65,4 @@ az sf cluster create --resource-group $ResourceGroupName --location $Location \
   --vault-resource-group $ResourceGroupName --vm-password $VmPassword --vm-user-name $VmUserName
 ```
 
+Using AKS

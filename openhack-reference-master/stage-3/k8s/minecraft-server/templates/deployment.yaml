@@ -1,0 +1,32 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "fullname" . }}
+    spec:
+      containers:
+      - name: {{ template "fullname" . }}
+        image: openhack/minecraft-server:2.0
+        ports:
+        - containerPort: 25565
+          protocol: TCP
+        - containerPort: 25575
+          protocol: TCP
+        env:
+        - name: EULA
+          value: "TRUE"
+        volumeMounts:
+        - name: azure
+          mountPath: /data
+      volumes:
+      - name: azure
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}-data

@@ -1,0 +1,40 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: minecraft
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: minecraft
+    spec:
+      containers:
+      - name: minecraft
+        image: openhack/minecraft-server:1.0
+        ports:
+        - containerPort: 25565
+          protocol: TCP
+        - containerPort: 25575
+          protocol: TCP
+        env:
+        - name: EULA
+          value: "TRUE"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft
+spec:
+  selector:
+    app: minecraft
+  ports:
+    - name: minecraft
+      protocol: TCP
+      port: 25565
+      targetPort: 25565
+    - name: rcon
+      protocol: TCP
+      port: 25575
+      targetPort: 25575
+  type: LoadBalancer

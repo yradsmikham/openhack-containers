@@ -23,13 +23,12 @@ One more thought: in the case where external storage is used and the servers are
     - CPU usage by instance or node.
     - Version of the container running on any given instance.
     - Number of container instances running.
-    - Population of each Minecraft server.
-    - Total current players and available capacity.
+    - Population of each Minecraft server. (unique number of players in each server)
+    - Total current players (number of players online) and available capacity (max number of platers).
 
 - Upgrade your instance within the cluster above, to v2.0
 
 - Configure your container deployments so that the state is persisted between instance resets. In order for us to verify this, you must ensure that both the default port for Minecraft (25565) and the default port for RCON (25575) must be exposed and available publicly.
-
 
 ## References
 - You can find the Minecraft containers [on Docker Hub](https://hub.docker.com/r/openhack/minecraft-server/)
@@ -43,3 +42,15 @@ Some other useful resources in addition to the ones in challenge 2 are:
 - [Kubernetes volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
 - [Service Fabric Containers Overview](	https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-containers-overview)
 
+## Solution:
+
+Upgrading to V2: 
+- Delete and redeploy new yaml file using version 2.0 (openhack/minecraft-server:2.0)
+
+Geting metrics: mcstatus -> Azure functions; count # of tiles in minecraft server, prometheus exporter
+- https://itnext.io/using-prometheus-in-azure-kubernetes-service-aks-ae22cada8dd9
+- Azure monitoring
+- Kubernetes Dashboard
+
+Persistent Volume:
+- Statefulset

@@ -1,0 +1,41 @@
+@page
+@model TenantsModel
+
+@{
+    ViewData["Title"] = "Tenants";
+}
+
+<h1>Tenants</h1>
+
+<form method="post">
+    <div class="row">
+        <div class="col-md-3 col-xs-6">
+            <div class="dummy"></div>
+            <div class="thumbnail new">
+                <button name="Action" type="submit" value="new" class="btn">
+                    <div class="details">
+                        <strong><span class="glyphicon glyphicon-plus"></span> New</strong>
+                    </div>
+                </button>
+            </div>
+        </div>
+        @foreach (var tenant in Model.Tenants)
+        {
+            <div class="col-md-3 col-xs-6">
+                <div class="dummy"></div>
+                <div class="thumbnail tenant">
+                    <button name="Action" type="submit" value="delete:@tenant.Name" class="delete btn">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <div class="details">
+                        <div><strong>@tenant.Name</strong></div>
+                        @foreach (var endpoint in tenant.Endpoints)
+                        {
+                            <div>@endpoint.Key: @endpoint.Value</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</form>
